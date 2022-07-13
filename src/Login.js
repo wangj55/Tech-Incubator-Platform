@@ -35,7 +35,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login({signupRoute}) {
+export default function Login({signupRoute, dashboardRoute}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, loading, err] = useAuthState(auth);
@@ -49,7 +49,7 @@ export default function Login({signupRoute}) {
             alert("You are logged in");
 
             // TODO: navigate to user dashboard after dashboard page is set up
-            // navigate("dashboard");
+            navigate(dashboardRoute);
         }
     }, [user, loading]);
 
