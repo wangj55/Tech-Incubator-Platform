@@ -27,7 +27,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
@@ -40,13 +39,14 @@ const loginWithEmailAndPassword = async (email, password) => {
     }
 };
 
-const registerWithEmailAndPassword = async (name, email, password) => {
+const registerWithEmailAndPassword = async (firstName, lastName, email, password) => {
     try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
         await addDoc(collection(db, "users"), {
             uid: user.uid,
-            name,
+            firstName: firstName,
+            lastName: lastName,
             authProvider: "local",
             email
         });
@@ -68,4 +68,13 @@ const sendPasswordReset = async (email) => {
 
 const logout = () => {
     signOut(auth);
+};
+
+export {
+    auth,
+    db,
+    loginWithEmailAndPassword,
+    registerWithEmailAndPassword,
+    sendPasswordReset,
+    logout
 };
