@@ -1,13 +1,16 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "./Login";
 import Signup from "./Signup";
-import { Dashboard } from "./Dashboard";
+import Dashboard from "./Dashboard";
+import Profile from "./Profile";
 
 function App() {
     const ROUTES = {
         LOGIN: "/login",
         SIGNUP: "/signup",
-        DASHBOARD: "/dashboard"
+        DASHBOARD: "/dashboard",
+        PROFILE: "/profile"
     };
 
     return (
@@ -20,15 +23,19 @@ function App() {
                     />
                     <Route
                         exact path={ROUTES.LOGIN}
-                        element={<Login signupRoute={ROUTES.SIGNUP} dashboardRoute={ROUTES.DASHBOARD}/>}
+                        element={<Login ROUTES={ROUTES}/>}
                     />
                     <Route
                         exact path={ROUTES.SIGNUP}
-                        element={<Signup loginRoute={ROUTES.LOGIN} dashboardRoute={ROUTES.DASHBOARD}/>}
+                        element={<Signup ROUTES={ROUTES}/>}
                     />
                     <Route
                         exact path={ROUTES.DASHBOARD}
-                        element={<Dashboard/>}
+                        element={<Dashboard ROUTES={ROUTES}/>}
+                    />
+                    <Route
+                        exact path={ROUTES.PROFILE}
+                        element={<Profile ROUTES={ROUTES}/>}
                     />
                 </Routes>
             </main>

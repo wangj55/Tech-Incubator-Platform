@@ -19,7 +19,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { auth, loginWithEmailAndPassword } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -35,7 +34,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login({signupRoute, dashboardRoute}) {
+export default function Login({ROUTES}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, loading, err] = useAuthState(auth);
@@ -46,16 +45,16 @@ export default function Login({signupRoute, dashboardRoute}) {
             // TODO: (optional) loading screen
         }
         if (user) {
-            alert("You are logged in");
+            console.log("You are logged in");
 
             // TODO: navigate to user dashboard after dashboard page is set up
-            navigate(dashboardRoute);
+            navigate(ROUTES.DASHBOARD);
         }
     }, [user, loading]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        loginWithEmailAndPassword(email, password);
+        await loginWithEmailAndPassword(email, password);
     }
 
     return (
@@ -120,7 +119,7 @@ export default function Login({signupRoute, dashboardRoute}) {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href={signupRoute} variant="body2">
+                                <Link href={ROUTES.SIGNUP} variant="body2">
                                     Don't have an account? Sign Up
                                 </Link>
                             </Grid>
