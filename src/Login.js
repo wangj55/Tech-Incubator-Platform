@@ -35,7 +35,7 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function Login({signupRoute, dashboardRoute}) {
+export default function Login({ROUTES}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [user, loading, err] = useAuthState(auth);
@@ -49,7 +49,7 @@ export default function Login({signupRoute, dashboardRoute}) {
             alert("You are logged in");
 
             // TODO: navigate to user dashboard after dashboard page is set up
-            navigate(dashboardRoute);
+            navigate(ROUTES.DASHBOARD);
         }
     }, [user, loading]);
 
@@ -120,7 +120,7 @@ export default function Login({signupRoute, dashboardRoute}) {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href={signupRoute} variant="body2">
+                                <Link href={ROUTES.SIGNUP} variant="body2">
                                     Don't have an account? Sign Up
                                 </Link>
                             </Grid>
