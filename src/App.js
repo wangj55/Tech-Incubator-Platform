@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import Signup from "./Signup";
-import { Dashboard } from "./Dashboard";
+import Dashboard from "./Dashboard";
 
 function App() {
     const ROUTES = {
@@ -28,7 +28,7 @@ function App() {
                     />
                     <Route
                         exact path={ROUTES.DASHBOARD}
-                        element={<Dashboard/>}
+                        element={<Dashboard loginRoute={ROUTES.LOGIN}/>}
                     />
                 </Routes>
             </main>
