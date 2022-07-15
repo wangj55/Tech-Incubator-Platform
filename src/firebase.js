@@ -18,6 +18,7 @@ import {
 } from "firebase/firestore";
 import {
     deleteObject,
+    getDownloadURL,
     getStorage,
     ref,
     uploadBytes
@@ -82,6 +83,16 @@ const logout = async () => {
     await signOut(auth);
 };
 
+const fetchUserProfileImage = async () => {
+    const userData = await fetchUserData(auth.currentUser.uid);
+    console.log(userData);
+    if (userData.profileImagePath) {
+        return getDownloadURL(ref(storage, userData.profileImagePath));
+    } else {
+        return null;
+    }
+};
+
 const setUserProfileImage = async (image) => {
     const userData = await fetchUserData(auth.currentUser.uid);
 
@@ -137,6 +148,7 @@ export {
     registerWithEmailAndPassword,
     sendPasswordReset,
     logout,
+    fetchUserProfileImage,
     setUserProfileImage,
     fetchUserData,
     updateUserData

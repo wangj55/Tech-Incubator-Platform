@@ -1,12 +1,13 @@
-import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { logout } from "./firebase";
+import { fetchUserProfileImage, logout } from "./firebase";
 
 export default function TopBar({ROUTES}) {
     const [anchorEl, setAnchorEl] = useState(null);
     const [profileClicked, setProfileClicked] = useState(false);
+    const [profileImageUrl, setProfileImageUrl] = useState(null);
     const navigate = useNavigate();
 
     const handleUserMenuOpen = (event) => {
@@ -21,10 +22,24 @@ export default function TopBar({ROUTES}) {
         await logout();
     };
 
+    const getProfileImageUrl = async () => {
+        try {
+            fetchUserProfileImage()
+                .then((url) => {
+                    setProfileImageUrl(url);
+                })
+        } catch (err) {
+            console.error(err);
+            alert("An error occurred while fetching user profile image");
+        }
+    };
+
     useEffect(() => {
         if (profileClicked) {
             navigate(ROUTES.PROFILE);
         }
+
+        getProfileImageUrl();
     }, [profileClicked]);
 
     return (
@@ -41,7 +56,14 @@ export default function TopBar({ROUTES}) {
                     onClick={handleUserMenuOpen}
                     color="inherit"
                 >
-                    <AccountCircle/>
+                    {profileImageUrl ?
+                        <Avatar
+                            alt="Profile Image"
+                            src={profileImageUrl}
+                            sx={{width: 40, height: 40}}
+                        /> :
+                        <AccountCircle/>
+                    }
                 </IconButton>
                 <Menu
                     sx={{mt: "45px"}}
