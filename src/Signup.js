@@ -48,15 +48,13 @@ export default function Signup({ROUTES}) {
         }
         if (user) {
             alert("You are signed up");
-
-            // TODO: navigate to user dashboard after dashboard page is set up
             navigate(ROUTES.DASHBOARD);
         }
     }, [user, loading]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        registerWithEmailAndPassword(firstName, lastName, email, password);
+        await registerWithEmailAndPassword(firstName, lastName, email, password);
     }
 
     return (

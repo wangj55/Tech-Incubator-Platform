@@ -19,7 +19,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { auth, loginWithEmailAndPassword } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 
-
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -46,16 +45,16 @@ export default function Login({ROUTES}) {
             // TODO: (optional) loading screen
         }
         if (user) {
-            alert("You are logged in");
+            console.log("You are logged in");
 
             // TODO: navigate to user dashboard after dashboard page is set up
             navigate(ROUTES.DASHBOARD);
         }
     }, [user, loading]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        loginWithEmailAndPassword(email, password);
+        await loginWithEmailAndPassword(email, password);
     }
 
     return (

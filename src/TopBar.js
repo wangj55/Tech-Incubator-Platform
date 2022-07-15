@@ -17,10 +17,13 @@ export default function TopBar({ROUTES}) {
         setAnchorEl(null);
     };
 
+    const onLogout = async () => {
+        await logout();
+    };
+
     useEffect(() => {
         if (profileClicked) {
             navigate(ROUTES.PROFILE);
-            return;
         }
     }, [profileClicked]);
 
@@ -57,7 +60,7 @@ export default function TopBar({ROUTES}) {
                     onClose={handleUserMenuClose}
                 >
                     <MenuItem onClick={() => setProfileClicked(true)}>Profile</MenuItem>
-                    <MenuItem onClick={logout}>Log out</MenuItem>
+                    <MenuItem onClick={onLogout}>Log out</MenuItem>
                 </Menu>
             </Toolbar>
         </AppBar>
